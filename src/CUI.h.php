@@ -19,11 +19,12 @@ class CUI
         $SYS = new CSystem();
         try {
             $SYS->run($srcFolder, $destFolder);   
+            UI_ln("$srcFolder -> $destFolder");
         }
         catch (Exception $e) {
            $this->processException($e, $srcFolder, $destFolder);
         }
-      
+        
       
     }
 
