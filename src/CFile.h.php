@@ -13,13 +13,6 @@ class CFile
    private $m_path;
    private $m_children;
    
-   //function CFile() {
-   //   $this->m_name = "";
-   //   $this->m_size = "";
-   //   $this->m_type = "";
-   //   $this->m_path = "";
-   //}
-
    function CFile($name="", $size="", $type="", $path="") {
       $this->m_name = $name;
       $this->m_size = $size;
@@ -47,10 +40,6 @@ class CFile
     * @return string
     */
    function getSizeStr() {
-      //if ($this->m_type == "dir") {
-      //   return "-";
-      //};
-      
       $sizeStr = "{$this->m_size}b";
       $kb = 1024;
       if ($this->m_size >= $kb) {
@@ -132,19 +121,14 @@ class CFile
       $nameAr[$nameSegmentIndex] = $nameSegment;
    
       $name2 = implode(".", $nameAr);
-      UI_echo('CFile updateName() $f', "$name $type $sizeStr $name2");
+      //UI_echo('CFile updateName() $f', "$name $type $sizeStr $name2");
    
       $path2 = str_replace($name, $name2, $path);
    
       $this->setName($name2);
-      //$this->setPath($path2);
       
       for ($i=0; $i<count($this->m_children); $i++) {
          $node = $this->m_children[$i];
-         
-         $fileName = $node->getName();
-         $fileName = CFSFacade::concat($path2, $fileName);;
-         $node->setName($fileName);
          $node->updateName();
       };
       

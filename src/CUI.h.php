@@ -1,7 +1,7 @@
 <?php
 include_once("CSystem.h.php");
 /**
- * Основной класс слоя интерфейса с пользователем
+ * РћСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ СЃР»РѕСЏ РёРЅС‚РµСЂС„РµР№СЃР° СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
  */
 // ============================================================================
 class CUI
@@ -11,7 +11,7 @@ class CUI
    
    /**
     * 
-    * Обработка события "go" 
+    * РћР±СЂР°Р±РѕС‚РєР° СЃРѕР±С‹С‚РёСЏ "go" 
     */
     function go() {
         $this->getParams($srcFolder, $destFolder);
@@ -29,7 +29,7 @@ class CUI
 
    /**
     * 
-    * Получает значения параметров запуска
+    * РџРѕР»СѓС‡Р°РµС‚ Р·РЅР°С‡РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ Р·Р°РїСѓСЃРєР°
     * @param string $srcFolder OUT
     * @param string $destFolder OUT
     */
@@ -48,7 +48,7 @@ class CUI
    
    /**
     * 
-    * Обрабатывает исключения
+    * РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёСЏ
     * @param Exception $e
     * @param string $srcFolder 
     * @param string $destFolder 
@@ -58,11 +58,10 @@ class CUI
       $codeAr = explode("-", $codeS);
       $code = $codeAr[0];
       $param = $codeAr[1];
-      $messageAr = array("EDestDirIsNotEmpty" => "Папка-назначение '$param' - непустая");
-      //if ()
+      $messageAr = array("EDestDirIsNotEmpty" => "РџР°РїРєР°-РЅР°Р·РЅР°С‡РµРЅРёРµ '$param' - РЅРµРїСѓСЃС‚Р°СЏ");
       $message = $messageAr[$code];
       
-      UI_ln("Ошибка $code: $message");
+      UI_ln("РћС€РёР±РєР° $code: $message");
    }
    
 };

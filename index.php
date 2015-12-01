@@ -1,11 +1,11 @@
 <?php 
 /**
- * web-интерфейс запуска программы getTree
+ * web-РёРЅС‚РµСЂС„РµР№СЃ Р·Р°РїСѓСЃРєР° РїСЂРѕРіСЂР°РјРјС‹ getTree
  * 
  *  Usage: index.php?i=<srcFolder>&o=<destFolder>
  *  
- *  srcFolder - путь к папке, которую нужно просканировать
- *  destFolder - путь к папке, где нужно создать информацию о папке (srcFolder)
+ *  srcFolder - РїСѓС‚СЊ Рє РїР°РїРєРµ, РєРѕС‚РѕСЂСѓСЋ РЅСѓР¶РЅРѕ РїСЂРѕСЃРєР°РЅРёСЂРѕРІР°С‚СЊ
+ *  destFolder - РїСѓС‚СЊ Рє РїР°РїРєРµ, РіРґРµ РЅСѓР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїР°РїРєРµ (srcFolder)
  */
 
 error_reporting(E_ALL);
@@ -19,39 +19,9 @@ include_once("src/CUI.h.php");
 $_io = new CIO();
 
 
-UI_ln("getTree.h.php");
+//UI_ln("getTree.h.php");
 
 $UI = new CUI();
 $UI->go();
    
-/*   
-getParams($srcFolder, $destFolder);
-UI_echo('$srcFolder', $srcFolder);
-UI_echo('$destFolder', $destFolder);
-
-$SYS = new CSystem();
-$SYS->run($srcFolder, $destFolder);
-*/
-
-
-/**
- * 
- * Получает значения параметров запуска
- * @param string $srcFolder OUT
- * @param string $destFolder OUT
- */
-/*
-function getParams(&$srcFolder, &$destFolder) {
-   $srcFolder    = "";
-   $destFolder   = "";
-   
-   if (array_key_exists("i", $_GET)) {
-      $srcFolder    = $_GET["i"];
-   };
-   if (array_key_exists("o", $_GET)) {
-      $destFolder   = $_GET["o"];
-   };
-}
-*/
-
 ?>

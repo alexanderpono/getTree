@@ -1,7 +1,7 @@
 <?php
 include_once("CRunHandler.h.php");
 /**
- * Êëàññ-êîîðäèíàòîð äîìåíà (áèçíåñ-ïðîöåññîâ)
+ * ÐšÐ»Ð°ÑÑ-ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ð¾Ñ€ Ð´Ð¾Ð¼ÐµÐ½Ð° (Ð±Ð¸Ð·Ð½ÐµÑ-Ð¿Ñ€Ð¾Ñ†ÐµÑÑÐ¾Ð²)
  * 
  * @class CSystem
  */
@@ -13,7 +13,7 @@ class CSystem
 
    /**
     * 
-    * Îáðàáîòêà ñîáûòèÿ "run" 
+    * ÐžÐ±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ "run" 
     * @param string $srcFolder
     * @param string $destFolder
     */

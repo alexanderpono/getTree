@@ -3,7 +3,7 @@ include_once("CFile.h.php");
 
 
 /**
- * Èíòåðôåéñíûé êëàññ äîñòóïà ê ôóíêöèÿì ðàáîòû ñ ôàéëîâîé ñèñòåìîé
+ * Ð˜Ð½Ñ‚ÐµÑ€Ñ„ÐµÐ¹ÑÐ½Ñ‹Ð¹ ÐºÐ»Ð°ÑÑ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° Ðº Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑÐ¼ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ Ñ„Ð°Ð¹Ð»Ð¾Ð²Ð¾Ð¹ ÑÐ¸ÑÑ‚ÐµÐ¼Ð¾Ð¹
  */
 // ============================================================================
 class CFSFacade
@@ -13,7 +13,7 @@ class CFSFacade
 
    /**
     * 
-    * âîçâðàùàåò èíôîðìàöèþ î ñòðóêòóðå êàòàëîãà ($srcFolder)
+    * Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ Ð¾ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ðµ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð° ($srcFolder)
     * @param string $srcFolder
     * @return array(CFile)
     */
@@ -25,7 +25,7 @@ class CFSFacade
    
    /**
     * 
-    * Ñîåäèíÿåò ÷åðåç ñëýø 2 ñòðîêè
+    * Ð¡Ð¾ÐµÐ´Ð¸Ð½ÑÐµÑ‚ Ñ‡ÐµÑ€ÐµÐ· ÑÐ»ÑÑˆ 2 ÑÑ‚Ñ€Ð¾ÐºÐ¸
     * @param string $dirName
     * @param string $fName
     * @return string
@@ -41,7 +41,7 @@ class CFSFacade
    
    /**
     * 
-    * Âîçâðàùàåò èåðàðõè÷åñêóþ ñòðóêòóðó äàííûõ ñ èíôîðìàöèåé î ôàéëàõ êàòàëîãà
+    * Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð¸ÐµÑ€Ð°Ñ€Ñ…Ð¸Ñ‡ÐµÑÐºÑƒÑŽ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñƒ Ð´Ð°Ð½Ð½Ñ‹Ñ… Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÐµÐ¹ Ð¾ Ñ„Ð°Ð¹Ð»Ð°Ñ… ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð°
     * @param string $srcFolder
     * @param string $dirName
     * @param string $pathStart
@@ -61,7 +61,6 @@ class CFSFacade
          {
             if($file != '.' && $file != '..')
             {
-               UI_ln($pathStart.$file);
                $type = "file";
                if (is_dir($fullFName.'/'.$file)) {
                   $type = "dir";
@@ -70,8 +69,9 @@ class CFSFacade
                if($recursive && ($type == "dir"))
                {
                   $f = CFSFacade::getDirContents(
-                            $srcFolder, 
-                            CFSFacade::concat($dirName, $file), 
+                            $srcFolder,
+                            $file, 
+                            //CFSFacade::concat($dirName, $file), 
                             $pathStart.$file."/", $recursive
                        );
                }
@@ -95,55 +95,32 @@ class CFSFacade
    
    /**
     * 
-    * Çàïèñûâàþò èíôîðìàöèþ î ñòðóêòóðå êàòàëîãà ($treeInforAr) â ïàïêó ($destFolder)
+    * Ð—Ð°Ð¿Ð¸ÑÑ‹Ð²Ð°ÑŽÑ‚ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ Ð¾ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ðµ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð° ($treeInforAr) Ð² Ð¿Ð°Ð¿ÐºÑƒ ($destFolder)
     * @param string $destFolder
-    * @param array(CFile) $treeInforAr
-    * @throws EDestDirIsNotEmpty
+    * @param string $subFolder
+    * @param CFile $treeF
     * @return void
     */
-   static function writeFileTree($destFolder, $treeF) {
-      //UI_ln("CFSFacade getFileTree()");
-      
-      //ïðîâåðÿþ, åñòü ëè ôàéëû â ïàïêå-íàçíà÷åíèè. Åñëè åñòü - àâàðèéíûé âûõîä 
-      $fs = new CFileSystem("CFileSystem");
-      $ar = $fs->getDirContents($destFolder, true);
-      UI_echo('CFSFacade writeFileTree() $destFolder', $destFolder);
-      UI_echo('CFSFacade writeFileTree() count($ar)', count($ar));
-      
-      if (count($ar) > 0) {
-         throw new Exception("EDestDirIsNotEmpty-$destFolder");
-         return;
-      };
-      
+   static function writeFileTree($destFolder, $subFolder, $treeF) {
       $folderF = $treeF;
-      //$ar = array(); //ñòåê
-      //UI_echo('CFSFacade writeFileTree() $folderF->getChildrenNumber()', $folderF->getChildrenNumber());
       
       for ($i=0; $i<$folderF->getChildrenNumber(); $i++) {
          $f = $folderF->getChild($i);
          
          
          $fName       = $f->getName();
-         //$fullFName   = $srcFolder . "/" . $fName;
-         //$fsize       = $f->getSize();
          $type        = $f->getType();
-         UI_echo('$fName', $fName);
-         UI_echo('$type', $type);
          
-         $fullFName   = $destFolder . "/" . $fName;
+         $fullFName = CFSFacade::concat($destFolder, CFSFacade::concat($subFolder, $fName));
          if ($type == "dir") {
             mkdir($fullFName);
-            CFSFacade::writeFileTree($destFolder, $f);
+            CFSFacade::writeFileTree($destFolder, CFSFacade::concat($subFolder, $fName), $f);
          }
          else {
             $f1 = fopen($fullFName, "a");
             fclose($f1);
          };
                   
-         /*
-         
-         //UI_echo('$fullFName', $fullFName);
-         */
       }
       
    }
