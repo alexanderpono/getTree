@@ -1,5 +1,6 @@
 <?php
 include_once("CFile.h.php");
+include_once("lib/CT_file/CT_file.h.php");
 
 
 /**
@@ -123,6 +124,22 @@ class CFSFacade
                   
       }
       
+   }
+   
+   /**
+    * 
+    * Считывает содержимое файла ($fName)
+    * @param string $fName
+    * @return string
+    */
+   static function readFile($fName) {
+      if (!file_exists($fName)) {
+         throw new Exception("EVersionReadError-"); 
+      };
+      $f = new CT_file("f");
+      $s = $f->load($fName);
+
+      return $s;
    }
    
    
