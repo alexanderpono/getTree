@@ -78,6 +78,7 @@ class CFSFacade
                }
                else {
                   $fsize        = filesize($fullFName.'/'.$file);
+                  $fsize = sprintf("%u", $fsize);
                   $f            = new CFile($file, $fsize, $type, $pathStart.$file);
                };
                
