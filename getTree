@@ -1,0 +1,4 @@
+#!/bin/bash
+. initCmdUtilsEnv
+
+php $GET_TREE_PATH/console.php $1 $2 $3 $4 $5
