@@ -1,7 +1,11 @@
 <?php
+
+//namespace getTree\SYS;
+
+use getTree\SYS\CFile;
+
 include_once("CFile.h.php");
 include_once("lib/CT_file/CT_file.h.php");
-
 
 /**
  * Интерфейсный класс доступа к функциям работы с файловой системой
@@ -69,6 +73,7 @@ class CFSFacade
                
                if($recursive && ($type == "dir"))
                {
+                  //UI_ln("getDirContents() dir '$file'");
                   $f = CFSFacade::getDirContents(
                             $srcFolder,
                             $file, 
@@ -81,7 +86,6 @@ class CFSFacade
                   $fsize = sprintf("%u", $fsize);
                   $f            = new CFile($file, $fsize, $type, $pathStart.$file);
                };
-               
                $dirF->addChild($f);
             }
          }
@@ -135,9 +139,9 @@ class CFSFacade
     */
    static function readFile($fName) {
       if (!file_exists($fName)) {
-         throw new Exception("EVersionReadError-"); 
+         throw new \Exception("EVersionReadError-"); 
       };
-      $f = new CT_file("f");
+      $f = new \CT_file("f");
       $s = $f->load($fName);
 
       return $s;

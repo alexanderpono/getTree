@@ -8,6 +8,8 @@
  *  destFolder - путь к папке, где нужно создать информацию о папке (srcFolder)
  */
 
+use getTree\UI\CUI;
+
 error_reporting(E_ALL);
 global $_io;
 global $_libPath;

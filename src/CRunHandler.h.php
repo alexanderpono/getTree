@@ -1,4 +1,7 @@
 <?php
+
+//namespace getTree\SYS;
+
 include_once("CFSFacade.h.php");
 
 /**
@@ -27,22 +30,22 @@ class CRunHandler
 
         //2. проверка, что ни один параметр не задан 
         if (($srcFolder == "") && ($destFolder == "")) {
-           throw new Exception("ENoParameters-");
+           throw new \Exception("ENoParameters-");
         };
         
         //3. проверка, задан ли параметр i
         if ($srcFolder == "") {
-           throw new Exception("ENoIParameter-");
+           throw new \Exception("ENoIParameter-");
         };
         
         //4. проверка, задан ли параметр o
         if ($destFolder == "") {
-           throw new Exception("ENoOParameter-");
+           throw new \Exception("ENoOParameter-");
         };
         
         //5. проверка, существует ли входная папка
         if ((!file_exists($srcFolder)) || (!is_dir($srcFolder))) {
-           throw new Exception("ENoInputFolder-");
+           throw new \Exception("ENoInputFolder-");
         };
         
         //6. Проверка существования папки-назначения. Если папки 
@@ -51,14 +54,14 @@ class CRunHandler
         if (!file_exists($destFolder)) {
             mkdir($destFolder);
             if (!file_exists($destFolder)) {
-               throw new Exception("EErrorCreatingOutputFolder-");
+               throw new \Exception("EErrorCreatingOutputFolder-");
             };
         };
         
         //7. Проверка папки-назначения на запись. Если не доступна на запись, 
         //то исключение EOutputFolderWriteError
         if (!is_writeable($destFolder)) {
-            throw new Exception("EOutputFolderWriteError-");
+            throw new \Exception("EOutputFolderWriteError-");
         };
         
         //8. Если папка-назначение содержит файлы, то узнать их суммарный размер. 
@@ -69,7 +72,7 @@ class CRunHandler
         $allSize = $destF->getSize();
         //UI_echo('$allSize', $allSize);
         if ($allSize > 0) {
-           throw new Exception("EOutputFolderNotZero-$destFolder");
+           throw new \Exception("EOutputFolderNotZero-$destFolder");
            return;
         };
         
@@ -81,7 +84,7 @@ class CRunHandler
             $fs->clearDir($destFolder, true);
             $ar = $fs->getDirContents($destFolder, true);
             if (count($ar) > 0) {
-               throw new Exception("EOutputFolderWriteError-$destFolder");
+               throw new \Exception("EOutputFolderWriteError-$destFolder");
             };
         };
         
@@ -89,7 +92,7 @@ class CRunHandler
         $ar = $fs->getDirContents($destFolder, true);
       
         if (count($ar) > 0) {
-           throw new Exception("EDestDirIsNotEmpty-$destFolder");
+           throw new \Exception("EDestDirIsNotEmpty-$destFolder");
            return;
         };
         

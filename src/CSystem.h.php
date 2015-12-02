@@ -1,4 +1,7 @@
 <?php
+
+//namespace getTree\SYS;
+
 include_once("CRunHandler.h.php");
 /**
  * Класс-координатор домена (бизнес-процессов)

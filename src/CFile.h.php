@@ -1,19 +1,60 @@
 <?php
+/**
+ * 
+ * getTree
+ * @author www
+ *
+ */
+
+
+
+namespace getTree\SYS;
+
 
 /**
  * Класс, который соответствует файлу
  */
-// ============================================================================
 class CFile
-// ============================================================================
 {
+   /**
+    * Имя файла
+    * @var string 
+    */
    private $m_name;
+   
+   /**
+    * Размер файла в байтах
+    * @var int 
+    */
    private $m_size;
+   
+   /**
+    * Тип файла: "file", "dir"
+    * @var string 
+    */
    private $m_type;
+   
+   /**
+    * Путь к файлу(папке) внутри корневой папки
+    * @var string 
+    */
    private $m_path;
+   
+   /**
+    * Список дочерних файлов (папок)
+    * @var array(CFile) 
+    */
    private $m_children;
    
-   function CFile($name="", $size="", $type="", $path="") {
+   /**
+    * 
+    * Конструктор
+    * @param string $name
+    * @param string $size
+    * @param string $type
+    * @param string $path
+    */
+   function __construct($name="", $size="", $type="", $path="") {
       $this->m_name = $name;
       $this->m_size = $size;
       $this->m_type = $type;
@@ -21,17 +62,71 @@ class CFile
       $this->m_children = array();
    }
    
+   /**
+    * set
+    * @param string $name
+    */
    function setName($name) {$this->m_name = $name;}
+   
+   /**
+    * set
+    * @param int $size
+    */
    function setSize($size) {$this->m_size = $size;}
+   
+   /**
+    * set
+    * @param string $type - "file", "dir"
+    */
    function setType($type) {$this->m_type = $type;}
+   
+   /**
+    * set - установка пути к файлу
+    * @param string $path
+    */
    function setPath($path) {$this->m_path = $path;}
+   
+   /**
+    * Добавление элемента к списку дочерних узлов
+    * @param string $path
+    */
    function addChild(&$f) {array_push($this->m_children, $f);}
    
+   /**
+    * get name
+    * @return string 
+    */
    function getName() {return $this->m_name;}
+   
+   /**
+    * get size
+    * @return int 
+    */
    function getSize() {return $this->m_size;}
+   
+   /**
+    * get type
+    * @return string 
+    */
    function getType() {return $this->m_type;}
+   
+   /**
+    * get path to file
+    * @return string 
+    */
    function getPath() {return $this->m_path;}
+   
+   /**
+    * get - количество дочерних элементов в папке
+    * @return int 
+    */
    function getChildrenNumber() {return count($this->m_children);}
+   
+   /**
+    * get - дочерний узел с порядковым номером ($i) - нумерация с 0
+    * @param int $i
+    * @return CFile 
+    */
    function getChild($i) {return $this->m_children[$i];}
    
    /**
@@ -65,6 +160,10 @@ class CFile
       return $sizeStr;
    }
    
+   /**
+    * Распечатка информации о файле
+    * @return void
+    */
    function e() {
       UI_ln("$this->m_name, $this->m_size, $this->m_type, $this->m_path");
       for ($i=0; $i<count($this->m_children); $i++) {

@@ -1,4 +1,12 @@
 <?php
+/**
+ * 
+ */
+
+namespace getTree\UI;
+//use getTree\SYS\CSystem;
+//use getTree\SYS\CFSFacade;
+
 include_once("CSystem.h.php");
 /**
  * Основной класс слоя интерфейса с пользователем
@@ -16,15 +24,15 @@ class CUI
     function go() {
         $this->getParams($srcFolder, $destFolder);
    
-        $SYS = new CSystem();
+        $SYS = new \CSystem();
         try {
-            $ver = CFSFacade::readFile("ver.txt");
+            $ver = \CFSFacade::readFile("ver.txt");
             UI_ln("******************************************************************");
             UI_ln("getTree ver $ver. Сохраняет информацию о файловой структуре диска");
             $SYS->run($srcFolder, $destFolder);   
             UI_ln("$srcFolder -> $destFolder");
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
            $this->processException($e->getMessage(), $srcFolder, $destFolder);
         }
         
@@ -59,7 +67,6 @@ class CUI
     */
    function processException($msg, $srcFolder, $destFolder) {
       $codeS = $msg;
-      //UI_echo('processException() $codeS', $codeS);
       $codeAr = explode("-", $codeS);
       $code = $codeAr[0];
       $param = $codeAr[1];
