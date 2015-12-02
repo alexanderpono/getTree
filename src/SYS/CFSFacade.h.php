@@ -1,6 +1,10 @@
 <?php
+/**
+ * getTree
+ * layer бизнес-логики SYS
+ */
 
-//namespace getTree\SYS;
+namespace getTree\SYS;
 
 use getTree\SYS\CFile;
 
@@ -10,12 +14,13 @@ include_once("lib/CT_file/CT_file.h.php");
 /**
  * Интерфейсный класс доступа к функциям работы с файловой системой
  */
-// ============================================================================
 class CFSFacade
-// ============================================================================
 {
-   function CFSFacade() {}
-
+   /**
+    * constructor 
+    */
+   function __construct() {}
+   
    /**
     * 
     * возвращает информацию о структуре каталога ($srcFolder)

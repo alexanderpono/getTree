@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<file>
+   <struct recordName="scanCommand">
+      <field id="APP_SV_TAGS"                name="tags"             type="STRING" />
+      <field id="APP_SV_TOOL_NAME"           name="toolName"         type="STRING" />
+      <field id="APP_SV_OPERATION"           name="operation"        type="STRING" />
+      <field id="APP_SV_CAPTION"             name="caption"          type="STRING" />
+      <field id="APP_SV_SCAN_PATH"           name="scanPath"         type="STRING" />
+      <field id="APP_SV_SCAN_SUBDIR"         name="subDir"           type="STRING" />
+      <field id="APP_SV_CHECK_VER"           name="checkVer"         type="STRING" />
+   </struct>
+<scanCommand tags="srcDoc" toolName="checkVersSite" operation="srcDoc" checkVer="1" caption="Подсистема"    scanPath="@ProjectRootDir;/lib" />
+   <scanCommand tags="std" toolName="checkVersSite" operation="getComponentsVersions" checkVer="1" caption="Библиотека сайта"   scanPath="@ProjectRootDir;/lib" />
+   <scanCommand tags="std" toolName="checkVersSite" operation="getComponentsVersions" checkVer="1" caption="IO-Библиотека сайта"   scanPath="@ProjectRootDir;/lib/IO" />
+
+ 
+</file>

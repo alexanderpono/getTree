@@ -16,7 +16,7 @@ global $_libPath;
 $_libPath = "lib";
 
 include_once('lib/lib.h.php');
-include_once("src/CUI.h.php");
+include_once("src/UI/CUI.h.php");
 
 $_io = new CIO();
 

@@ -1,6 +1,12 @@
 <?php
+/**
+ * getTree
+ * layer бизнес-логики SYS
+ */
 
-//namespace getTree\SYS;
+
+namespace getTree\SYS;
+use getTree\SYS\CRunHandler;
 
 include_once("CRunHandler.h.php");
 /**
@@ -8,11 +14,12 @@ include_once("CRunHandler.h.php");
  * 
  * @class CSystem
  */
-// ============================================================================
 class CSystem
-// ============================================================================
 {
-   function CSystem() {}
+   /**
+    * constructor 
+    */
+   function __construct() {}
 
    /**
     * 

@@ -20,10 +20,10 @@ class CT_file extends CDebugClass
    var $m_path;
 
    // ============================================================================
-   function CT_file($myName)
+   function __construct($myName)
    // ============================================================================
    {
-      $this->CDebugClass($myName);
+      parent::__construct($myName);
       $this->m_html = "";
       $this->m_path = "";
    }

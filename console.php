@@ -16,7 +16,7 @@ global $_libPath;
 $_libPath = "lib";
 
 include_once('lib/lib.h.php');
-include_once("src/CConsoleUI.h.php");
+include_once("src/UI/CConsoleUI.h.php");
 $_IO_br = "\n";
 
 $_io = new CIO();

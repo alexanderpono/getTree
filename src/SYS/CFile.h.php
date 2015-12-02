@@ -1,9 +1,7 @@
 <?php
 /**
- * 
  * getTree
- * @author www
- *
+ * layer бизнес-логики SYS
  */
 
 

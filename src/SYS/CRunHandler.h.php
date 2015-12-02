@@ -1,18 +1,23 @@
 <?php
+/**
+ * getTree
+ * layer бизнес-логики SYS
+ */
 
-//namespace getTree\SYS;
-
-include_once("CFSFacade.h.php");
+namespace getTree\SYS;
+use \getTree\SYS\CFSFacade;
+include_once("src/SYS/CFSFacade.h.php");
 
 /**
  * Обработчик системного события "run" 
  */
-// ============================================================================
 class CRunHandler
-// ============================================================================
 {
-   function CRunHandler() {}
-
+   /**
+    * constructor 
+    */
+   function __construct() {}
+   
    /**
     * 
     * Обработка системного события "run" 
@@ -78,7 +83,7 @@ class CRunHandler
         
         //9. Если папка-назначение непустая, то ее очистка. Если возникла ошибка, 
         //то исключение EOutputFolderWriteError
-        $fs = new CFileSystem("CFileSystem");
+        $fs = new \CFileSystem("CFileSystem");
         $ar = $fs->getDirContents($destFolder, true);
         if (count($ar) > 0) {
             $fs->clearDir($destFolder, true);
@@ -88,7 +93,7 @@ class CRunHandler
             };
         };
         
-        $fs = new CFileSystem("CFileSystem");
+        $fs = new \CFileSystem("CFileSystem");
         $ar = $fs->getDirContents($destFolder, true);
       
         if (count($ar) > 0) {
