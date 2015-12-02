@@ -1,8 +1,12 @@
 <?php
 /**
+ * CDebugClass
+ * @author Sasha
+ */
+
+/**
  * Класс CDebugClass хранит название объекта, 
  * которое может быть использовано для диагностики ошибок
- * @author Sasha
  *
  */
 class CDebugClass

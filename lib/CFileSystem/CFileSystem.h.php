@@ -1,5 +1,11 @@
 <?php
 /**
+ * CFileSystem
+ * @author Sasha
+ */
+
+
+/**
  * Класс CFileSystem предоставляет методыдля взаимодействия
  * с файловой системой
  * @author Dima

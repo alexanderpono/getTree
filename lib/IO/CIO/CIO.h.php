@@ -1,52 +1,74 @@
 <?php
-// ============================================================================
-//    PURPOSE:             Ãëàâíûé êëàññ ïîäñèñòåìû IO
-//
-//    FUNCTIONAL AREA:     IO
-//    NAME:                CIO.h.php 
-//    VERSION:             ver.txt
-//    AUTHORS:             Sasha
-//    DESIGN REFERENCE:    
-//    MODIFICATION:        
-// ============================================================================
-// =================================================================== INCLUDES
+/**
+ * CIO
+ * @author Sasha
+ */
+
 global $_libPath;
 include_once($_libPath . "/IO/CStdOut/CStdOut.h.php");
 include_once($_libPath . "/IO/CStorage/CStorage.h.php");
 include_once($_libPath . "/IO/CWebInterface/CWebInterface.h.php");
 include_once($_libPath . "/IO/APP_LOG/APP_LOG.h.php");
-// =================================================================== SYNOPSIS
-// ================================================================== CONSTANTS
-// ================================================================== VARIABLES
-// ================================================================== FUNCTIONS
 
-// ============================================================================
+/**
+ * Ð“Ð»Ð°Ð²Ð½Ñ‹Ð¹ ÐºÐ»Ð°ÑÑ Ð¿Ð¾Ð´ÑÐ¸ÑÑ‚ÐµÐ¼Ñ‹ 
+ * @author Sasha
+ */
 class CIO 
-// ============================================================================
 {
-   var $m_webI;      //ýêçåìïëÿð êëàññà CWebInterface
-   var $m_stdOut;    //ýêçåìïëÿð êëàññà CStdOut
-   var $m_storage;   //ýêçåìïëÿð êëàññà CStorage
+   /**
+    * ÑÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ ÐºÐ»Ð°ÑÑÐ° CWebInterface
+    * @var CWebInterface
+    */
+   private $m_webI;
+
+   /**
+    * ÑÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ ÐºÐ»Ð°ÑÑÐ° CStdOut
+    * @var CStdOut
+    */
+   private $m_stdOut;
+
+   /**
+    * ÑÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ ÐºÐ»Ð°ÑÑÐ° CStorage
+    * @var CStorage
+    */
+   private $m_storage;   
    
    
-   // ============================================================================
-   function CIO() 
-   // ============================================================================
+   /**
+    * constructor
+    */
+   function __construct() 
    {
-      //$this->CDebugClass($myName);
       $this->m_webI = new CWebInterface();
       $this->m_stdOut = new CStdOut();
       $this->m_storage = new CStorage();
       
       $this->m_webI->init($this);
-      //$this->m_stdOut->setIO($this);
-      //$this->m_storage->setIO($this);
    }
    
+   /**
+    * get 
+    * @return CStdOut
+    */
    function &getStdOut()   {return $this->m_stdOut;}
+   
+   /**
+    * get
+    * @return CWebInterface
+    */
    function &getWebI()     {return $this->m_webI;}
+   
+   /**
+    * get
+    * @return CStorage
+    */
    function &getStorage()  {return $this->m_storage;}
 
+   /**
+    * set 
+    * @param $webI
+    */
    function &setWebI(&$webI)     {$this->m_webI = $webI;}
    
 };

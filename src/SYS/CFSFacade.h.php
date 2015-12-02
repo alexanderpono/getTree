@@ -9,57 +9,60 @@ namespace getTree\SYS;
 use getTree\SYS\CFile;
 
 include_once("CFile.h.php");
-include_once("lib/CT_file/CT_file.h.php");
 
 /**
  * Интерфейсный класс доступа к функциям работы с файловой системой
  */
 class CFSFacade
 {
-   /**
-    * constructor 
-    */
-   function __construct() {}
+    // ============================================================================
+    /**
+     * constructor 
+     */
+    function __construct() {}
    
-   /**
-    * 
-    * возвращает информацию о структуре каталога ($srcFolder)
-    * @param string $srcFolder
-    * @return array(CFile)
-    */
+    // ============================================================================
+    /**
+     * 
+     * возвращает информацию о структуре каталога ($srcFolder)
+     * @param string $srcFolder
+     * @return array(CFile)
+     */
     static function getFileTree($srcFolder) {
         //UI_ln("CFSFacade getFileTree()");
         $rootF = CFSFacade::getDirContents($srcFolder, "", "", true);
         return $rootF;
-   }
+    }
    
-   /**
-    * 
-    * Соединяет через слэш 2 строки
-    * @param string $dirName
-    * @param string $fName
-    * @return string
-    */
-   static function concat($dirName, $fName) {
+    // ============================================================================
+    /**
+     * 
+     * Соединяет через слэш 2 строки
+     * @param string $dirName
+     * @param string $fName
+     * @return string
+     */
+    static function concat($dirName, $fName) {
         $slash = "";
         if (($dirName != "") && ($fName != "")) {
            $slash = "/";
         };       
         $s = $dirName . $slash . $fName;
         return $s;     
-    }
+     }
    
-   /**
-    * 
-    * Возвращает иерархическую структуру данных с информацией о файлах каталога
-    * @param string $srcFolder
-    * @param string $dirName
-    * @param string $pathStart
-    * @param bool $recursive
-    * @return string
-    */
-   static function getDirContents($srcFolder, $dirName, $pathStart, $recursive=false)
-   {
+    // ============================================================================
+    /**
+     * 
+     * Возвращает иерархическую структуру данных с информацией о файлах каталога
+     * @param string $srcFolder
+     * @param string $dirName
+     * @param string $pathStart
+     * @param bool $recursive
+     * @return string
+     */
+    static function getDirContents($srcFolder, $dirName, $pathStart, $recursive=false)
+    {
       $result = array();
 
       $dirF = new CFile($dirName, "", "dir", $dirName);
@@ -98,12 +101,13 @@ class CFSFacade
       };
       
       return $dirF;
-   }
+    }
    
    
    
    
    
+    // ============================================================================
    /**
     * 
     * Записывают информацию о структуре каталога ($treeInforAr) в папку ($destFolder)
@@ -136,6 +140,7 @@ class CFSFacade
       
    }
    
+    // ============================================================================
    /**
     * 
     * Считывает содержимое файла ($fName)
