@@ -18,13 +18,13 @@ class File
     * Имя файла
     * @var string 
     */
-   private $m_name;
+   private $name;
    
    /**
     * Размер файла в байтах
     * @var int 
     */
-   private $m_size;
+   private $size;
    
    const TDIR = "dir";   
    const TFILE = "file";
@@ -33,19 +33,19 @@ class File
     * Тип файла: "file", "dir"
     * @var string 
     */
-   private $m_type;
+   private $type;
    
    /**
     * Путь к файлу(папке) внутри корневой папки
     * @var string 
     */
-   private $m_path;
+   private $path;
    
    /**
     * Список дочерних файлов (папок)
     * @var array(CFile) 
     */
-   private $m_children;
+   private $children;
    
    // ============================================================================
    /**
@@ -57,11 +57,34 @@ class File
     * @param string $path
     */
    function __construct($name="", $size="", $type="", $path="") {
-      $this->m_name = $name;
-      $this->m_size = $size;
-      $this->m_type = $type;
-      $this->m_path = $path;
-      $this->m_children = array();
+      $this->name = $name;
+      $this->size = $size;
+      $this->type = $type;
+      $this->path = $path;
+      $this->children = array();
+   }
+   
+   /**
+    * Альтернативный конструктор - создает объект "папка"
+    * @param string $fName
+    * @param string $localPath
+    * @return File
+    */
+   static public function createDir($fName, $localPath) {
+      $f = new File($fName, 0, File::TDIR, $localPath); 
+      return $f;
+   }
+   
+   /**
+    * Альтернативный конструктор - создает объект "файл"
+    * @param string $fName
+    * @param int $fsize
+    * @param string $localPath
+    * @return File
+    */
+   static public function createFile($fName, $fsize, $localPath) {
+      $f = new File($fName, $fsize, File::TFILE, $localPath); 
+      return $f;
    }
    
    // ============================================================================
@@ -69,69 +92,69 @@ class File
     * set
     * @param string $name
     */
-   function setName($name) {$this->m_name = $name;}
+   function setName($name) {$this->name = $name;}
    
    // ============================================================================
    /**
     * set
     * @param int $size
     */
-   function setSize($size) {$this->m_size = $size;}
+   function setSize($size) {$this->size = $size;}
    
    // ============================================================================
    /**
     * set
     * @param string $type - "file", "dir"
     */
-   function setType($type) {$this->m_type = $type;}
+   function setType($type) {$this->type = $type;}
    
    // ============================================================================
    /**
     * set - установка пути к файлу
     * @param string $path
     */
-   function setPath($path) {$this->m_path = $path;}
+   function setPath($path) {$this->path = $path;}
    
    // ============================================================================
    /**
     * Добавление элемента к списку дочерних узлов
     * @param string $path
     */
-   function addChild(&$f) {array_push($this->m_children, $f);}
+   function addChild(&$f) {array_push($this->children, $f);}
    
    // ============================================================================
    /**
     * get name
     * @return string 
     */
-   function getName() {return $this->m_name;}
+   function getName() {return $this->name;}
    
    // ============================================================================
    /**
     * get size
     * @return int 
     */
-   function getSize() {return $this->m_size;}
+   function getSize() {return $this->size;}
    
    // ============================================================================
    /**
     * get type
     * @return string 
     */
-   function getType() {return $this->m_type;}
+   function getType() {return $this->type;}
    
    // ============================================================================
    /**
     * get path to file
     * @return string 
     */
-   function getPath() {return $this->m_path;}
+   function getPath() {return $this->path;}
    
    /**
     * get - количество дочерних элементов в папке
     * @return int 
     */
-   function getChildrenNumber() {return count($this->m_children);}
+   function getChildrenNumber() {return count($this->children);}
    
    // ============================================================================
    /**
@@ -139,7 +162,7 @@ class File
     * @param int $i
     * @return CFile 
     */
-   function getChild($i) {return $this->m_children[$i];}
+   function getChild($i) {return $this->children[$i];}
    
    // ============================================================================
    /**
@@ -148,24 +171,24 @@ class File
     * @return string
     */
    function getSizeStr() {
-      $sizeStr = "{$this->m_size}b";
+      $sizeStr = "{$this->size}b";
       $kb = 1024;
-      if ($this->m_size >= $kb) {
-         $sizeStr = $this->m_size / $kb;
+      if ($this->size >= $kb) {
+         $sizeStr = $this->size / $kb;
          $sizeStr = round($sizeStr * 10) / 10;
          $sizeStr = $sizeStr . "Kb";
       };
       
       $mb = $kb * 1024;
-      if ($this->m_size >= $mb) {
-         $sizeStr = $this->m_size / $mb;
+      if ($this->size >= $mb) {
+         $sizeStr = $this->size / $mb;
          $sizeStr = round($sizeStr * 10) / 10;
          $sizeStr = $sizeStr . "Mb";
       };
       
       $gb = $mb * 1024;
-      if ($this->m_size >= $gb) {
-         $sizeStr = $this->m_size / $gb;
+      if ($this->size >= $gb) {
+         $sizeStr = $this->size / $gb;
          $sizeStr = round($sizeStr * 10) / 10;
          $sizeStr = $sizeStr . "Gb";
       };
@@ -179,9 +202,9 @@ class File
     * @return void
     */
    function e() {
-      UI_ln("$this->m_name, $this->m_size, $this->m_type, $this->m_path");
-      for ($i=0; $i<count($this->m_children); $i++) {
-         $node = $this->m_children[$i];
+      UI_ln("$this->name, $this->size, $this->type, $this->path");
+      for ($i=0; $i<count($this->children); $i++) {
+         $node = $this->children[$i];
          $node->e();
       }
       
@@ -194,13 +217,13 @@ class File
     * @return void
     */
    function calcSize() {
-      if ($this->m_type != "dir") {
+      if ($this->type != "dir") {
          return;
       };
       
       $mySize = 0;
-      for ($i=0; $i<count($this->m_children); $i++) {
-         $node = $this->m_children[$i];
+      for ($i=0; $i<count($this->children); $i++) {
+         $node = $this->children[$i];
          if ($node->getType() == "dir") {
             $node->calcSize();
          };
@@ -218,7 +241,6 @@ class File
     */
    function updateName() {
       $name    = $this->getName();
-      $type    = $this->getType();
       $sizeStr = $this->getSizeStr();
       $path    = $this->getPath();
 
@@ -236,17 +258,20 @@ class File
       $nameAr[$nameSegmentIndex] = $nameSegment;
    
       $name2 = implode(".", $nameAr);
-      //UI_echo('CFile updateName() $f', "$name $type $sizeStr $name2");
    
       $path2 = str_replace($name, $name2, $path);
    
       $this->setName($name2);
       
-      for ($i=0; $i<count($this->m_children); $i++) {
-         $node = $this->m_children[$i];
+      for ($i=0; $i<count($this->children); $i++) {
+         $node = $this->children[$i];
          $node->updateName();
       };
       
+   }
+   
+   function isDir() {
+      return ($this->type == File::TDIR);
    }
 
 };
