@@ -4,14 +4,14 @@
  */
 
 namespace getTree\UI;
-use getTree\SYS\CSystem;
-use getTree\SYS\CFSFacade;
+use getTree\SYS\System;
+use getTree\SYS\FileSystemFacade;
 
-include_once("src/SYS/CSystem.h.php");
+include_once("src/SYS/System.h.php");
 /**
  * Основной класс слоя интерфейса с пользователем
  */
-class CUI
+class WebInterface
 {
    // ============================================================================
    /**
@@ -27,9 +27,9 @@ class CUI
     function go() {
         $this->getParams($srcFolder, $destFolder);
    
-        $SYS = new CSystem();
+        $SYS = new System();
         try {
-            $ver = CFSFacade::readFile("ver.txt");
+            $ver = FileSystemFacade::readFile("ver.txt");
             UI_ln("******************************************************************");
             UI_ln("getTree ver $ver. Сохраняет информацию о файловой структуре диска");
             $SYS->run($srcFolder, $destFolder);   

@@ -5,22 +5,19 @@
 
 namespace getTree\UI;
 
-include_once("CUI.h.php");
+include_once("WebInterface.h.php");
 
 /**
  * Основной класс слоя интерфейса с пользователем (консольное приложение)
  */
-class CConsoleUI extends CUI
+class ConsoleInterface extends WebInterface
 {
    // ============================================================================
    /**
-    * Создает экземпляр объекта
-    * 
+    * constructor 
     */
-   function CConsoleUI() {
+   function __construct() {}
       
-   }
-   
    // ============================================================================
    /**
     * 

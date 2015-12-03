@@ -6,15 +6,15 @@
 
 
 namespace getTree\SYS;
-use getTree\SYS\CRunHandler;
+use getTree\SYS\RunHandler;
 
-include_once("CRunHandler.h.php");
+include_once("RunHandler.h.php");
 /**
  * Класс-координатор домена (бизнес-процессов)
  * 
- * @class CSystem
+ * @class System
  */
-class CSystem
+class System
 {
    // ============================================================================
    /**
@@ -30,7 +30,7 @@ class CSystem
     * @param string $destFolder
     */
    function run($srcFolder, $destFolder) {
-      $handler = new CRunHandler();
+      $handler = new RunHandler();
       
       $handler->run($srcFolder, $destFolder);
    }

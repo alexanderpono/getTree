@@ -8,7 +8,7 @@
  *  destFolder - путь к папке, где нужно создать информацию о папке (srcFolder)
  */
 
-use getTree\UI\CConsoleUI;
+use getTree\UI\ConsoleInterface;
 
 error_reporting(E_ALL);
 global $_io;
@@ -16,13 +16,13 @@ global $_libPath;
 $_libPath = "lib";
 
 include_once('lib/lib.h.php');
-include_once("src/UI/CConsoleUI.h.php");
+include_once("src/UI/ConsoleInterface.h.php");
 $_IO_br = "\n";
 
 $_io = new CIO();
 
 
-$UI = new CConsoleUI();
+$UI = new ConsoleInterface();
 $UI->go();
 
 ?>

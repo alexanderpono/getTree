@@ -12,7 +12,7 @@ namespace getTree\SYS;
 /**
  * Класс, который соответствует файлу
  */
-class CFile
+class File
 {
    /**
     * Имя файла

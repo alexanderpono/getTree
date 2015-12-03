@@ -6,14 +6,14 @@
 
 namespace getTree\SYS;
 
-use getTree\SYS\CFile;
+use getTree\SYS\File;
 
-include_once("CFile.h.php");
+include_once("File.h.php");
 
 /**
  * Интерфейсный класс доступа к функциям работы с файловой системой
  */
-class CFSFacade
+class FileSystemFacade
 {
     // ============================================================================
     /**
@@ -26,11 +26,11 @@ class CFSFacade
      * 
      * возвращает информацию о структуре каталога ($srcFolder)
      * @param string $srcFolder
-     * @return array(CFile)
+     * @return array(File)
      */
     static function getFileTree($srcFolder) {
-        //UI_ln("CFSFacade getFileTree()");
-        $rootF = CFSFacade::getDirContents($srcFolder, "", "", true);
+        //UI_ln("FileSystemFacade getFileTree()");
+        $rootF = FileSystemFacade::getDirContents($srcFolder, "", "", true);
         return $rootF;
     }
    
@@ -65,9 +65,9 @@ class CFSFacade
     {
       $result = array();
 
-      $dirF = new CFile($dirName, "", "dir", $dirName);
+      $dirF = new File($dirName, "", "dir", $dirName);
       
-      $fullFName = CFSFacade::concat($srcFolder, $pathStart);
+      $fullFName = FileSystemFacade::concat($srcFolder, $pathStart);
       if($handle = @opendir($fullFName))
       {
          while(false !== ($file = readdir($handle)))
@@ -82,17 +82,17 @@ class CFSFacade
                if($recursive && ($type == "dir"))
                {
                   //UI_ln("getDirContents() dir '$file'");
-                  $f = CFSFacade::getDirContents(
+                  $f = FileSystemFacade::getDirContents(
                             $srcFolder,
                             $file, 
-                            //CFSFacade::concat($dirName, $file), 
+                            //FileSystemFacade::concat($dirName, $file), 
                             $pathStart.$file."/", $recursive
                        );
                }
                else {
                   $fsize        = filesize($fullFName.'/'.$file);
                   $fsize = sprintf("%u", $fsize);
-                  $f            = new CFile($file, $fsize, $type, $pathStart.$file);
+                  $f            = new File($file, $fsize, $type, $pathStart.$file);
                };
                $dirF->addChild($f);
             }
@@ -113,7 +113,7 @@ class CFSFacade
     * Записывают информацию о структуре каталога ($treeInforAr) в папку ($destFolder)
     * @param string $destFolder
     * @param string $subFolder
-    * @param CFile $treeF
+    * @param File $treeF
     * @return void
     */
    static function writeFileTree($destFolder, $subFolder, $treeF) {
@@ -126,10 +126,10 @@ class CFSFacade
          $fName       = $f->getName();
          $type        = $f->getType();
          
-         $fullFName = CFSFacade::concat($destFolder, CFSFacade::concat($subFolder, $fName));
+         $fullFName = FileSystemFacade::concat($destFolder, FileSystemFacade::concat($subFolder, $fName));
          if ($type == "dir") {
             mkdir($fullFName);
-            CFSFacade::writeFileTree($destFolder, CFSFacade::concat($subFolder, $fName), $f);
+            FileSystemFacade::writeFileTree($destFolder, FileSystemFacade::concat($subFolder, $fName), $f);
          }
          else {
             $f1 = fopen($fullFName, "a");

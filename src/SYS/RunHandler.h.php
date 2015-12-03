@@ -5,13 +5,13 @@
  */
 
 namespace getTree\SYS;
-use \getTree\SYS\CFSFacade;
-include_once("src/SYS/CFSFacade.h.php");
+use \getTree\SYS\FileSystemFacade;
+include_once("src/SYS/FileSystemFacade.h.php");
 
 /**
  * Обработчик системного события "run" 
  */
-class CRunHandler
+class RunHandler
 {
    // ============================================================================
    /**
@@ -29,7 +29,7 @@ class CRunHandler
     function run($srcFolder, $destFolder) {
         //UI_ln("CRunHandler run()");
 
-        $rootF = CFSFacade::getFileTree($srcFolder);
+        $rootF = FileSystemFacade::getFileTree($srcFolder);
         $rootF->calcSize();
         //$rootF->e();
         $rootF->updateName();
@@ -73,7 +73,7 @@ class CRunHandler
         
         //8. Если папка-назначение содержит файлы, то узнать их суммарный размер. 
         //Если он более 0, то исключение EOutputFolderNotZero. 
-        $destF = CFSFacade::getFileTree($destFolder);
+        $destF = FileSystemFacade::getFileTree($destFolder);
         //$destF->e();
         $destF->calcSize();
         $allSize = $destF->getSize();
@@ -103,7 +103,7 @@ class CRunHandler
            return;
         };
         
-        CFSFacade::writeFileTree($destFolder, "", $rootF);
+        FileSystemFacade::writeFileTree($destFolder, "", $rootF);
    }
 
 };
