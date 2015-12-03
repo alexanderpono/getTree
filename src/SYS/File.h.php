@@ -26,6 +26,9 @@ class File
     */
    private $m_size;
    
+   const TDIR = "dir";   
+   const TFILE = "file";
+       
    /**
     * Тип файла: "file", "dir"
     * @var string 

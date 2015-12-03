@@ -57,56 +57,70 @@ class FileSystemFacade
      * Возвращает иерархическую структуру данных с информацией о файлах каталога
      * @param string $srcFolder
      * @param string $dirName
-     * @param string $pathStart
+     * @param string $localPath - путь относительно папки ($srcFolder)
      * @param bool $recursive
-     * @return string
+     * @return File - иерархия объектов File в памяти
      */
-    static function getDirContents($srcFolder, $dirName, $pathStart, $recursive=false)
+    static function getDirContents($srcFolder, $dirName, $localPath, $recursive=false)
     {
-      $result = array();
-
-      $dirF = new File($dirName, "", "dir", $dirName);
+      $dirFile = new File($dirName, "", File::TDIR, $dirName);
       
-      $fullFName = FileSystemFacade::concat($srcFolder, $pathStart);
-      if($handle = @opendir($fullFName))
-      {
-         while(false !== ($file = readdir($handle)))
-         {
-            if($file != '.' && $file != '..')
-            {
-               $type = "file";
-               if (is_dir($fullFName.'/'.$file)) {
-                  $type = "dir";
-               };
-               
-               if($recursive && ($type == "dir"))
-               {
-                  //UI_ln("getDirContents() dir '$file'");
-                  $f = FileSystemFacade::getDirContents(
-                            $srcFolder,
-                            $file, 
-                            //FileSystemFacade::concat($dirName, $file), 
-                            $pathStart.$file."/", $recursive
-                       );
-               }
-               else {
-                  $fsize        = filesize($fullFName.'/'.$file);
-                  $fsize = sprintf("%u", $fsize);
-                  $f            = new File($file, $fsize, $type, $pathStart.$file);
-               };
-               $dirF->addChild($f);
-            }
-         }
-         closedir($handle);
+      $fullFName = FileSystemFacade::concat($srcFolder, $localPath);
+      $dirHandle = @opendir($fullFName);
+      if (!$dirHandle) {
+         return $dirFile;
       };
       
-      return $dirF;
+      while(false !== ($fName = readdir($dirHandle))) 
+      {
+         if (FileSystemFacade::isEmptyFileName($fName)) {
+            continue;
+         };
+         
+         $fullPath      = $fullFName.'/'.$fName;
+         $newLocalPath  = $localPath.$fName;
+         
+         if($recursive && is_dir($fullPath)) {
+            $f = FileSystemFacade::getDirContents(
+                    $srcFolder, $fName, $newLocalPath."/", $recursive
+                 );
+         }
+         else {
+            $f = FileSystemFacade::createFile(
+                    $fName, $newLocalPath, $fullPath
+                 );
+         };
+         $dirFile->addChild($f);
+      };
+      closedir($dirHandle);
+      
+      return $dirFile;
+    }
+    
+    // ============================================================================
+    /**
+     * Определяет, пустое ли имя у файла ($fName)
+     * @param string $fName
+     * @return bool
+     */
+    private static function isEmptyFileName($fName) {
+       return (($fName == '.') || ($fName == '..'));
     }
    
-   
-   
-   
-   
+    // ============================================================================
+    /**
+     * Создает структуру данных с информацией о файле $fName
+     * @param string $fName
+     * @param string $localPath
+     * @param string $fullPath
+     */
+    private static function createFile($fName, $localPath, $fullPath) {
+        $fsize = filesize($fullPath);
+        $fsize = sprintf("%u", $fsize);
+        $f     = new File($fName, $fsize, File::TFILE, $localPath);
+        return $f;
+    }
+    
     // ============================================================================
    /**
     * 
